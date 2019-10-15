@@ -20,7 +20,7 @@ export class ProductResolver implements Resolve<ProductResolved> {
         if (isNaN(+id)) {
             const message = `Product id was not a number: ${id}`;
             console.error(message);
-            return of({ product: null, message: message });
+            return of({ product: null, error: message });
         }
 
         return this.productService.getProduct(+id)
@@ -28,7 +28,7 @@ export class ProductResolver implements Resolve<ProductResolved> {
                 map(product => ({ product: product })),
                 catchError(error => {
                     const message = `Retrieval error: ${error}`;
-                    return of({ product: null, message: message });
+                    return of({ product: null, error: message });
                 })
             );
     }
